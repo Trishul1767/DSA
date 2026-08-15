@@ -1,21 +1,29 @@
 
+
+
 typedef struct {
     typedef struct {
     int stack[MAX];
     int minStack[MAX];
-    int top;
-} MinStack;
-    
+    int top;    
 } MinStack;
 
 
 MinStack* minStackCreate() {
-    
+    MinStack *obj=(malloc(sizeof(MinStack)));
+    obj->top=-1;
+    return obj;
 }
 
 void minStackPush(MinStack* obj, int value) {
-    
-    
+    obj->top++;
+    obj->stack[top]=value;
+    if(obj->stack[top]>=value){
+        obj->minStack[top]=value;
+    }
+    else{
+        obj->minStack[top]=obj->minstack[top];
+    }
 }
 
 void minStackPop(MinStack* obj) {
