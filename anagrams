@@ -21,6 +21,8 @@ class Solution:
         else:
             return False
 
+# or we can use counter method
+
 #by using counter method
 from collections import Counter
 arr = [1, 2, 2, 3, 3, 3, 4]
