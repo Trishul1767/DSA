@@ -9,3 +9,9 @@ Iterate Through the List: Move through the list, reversing the link from current
 Update Pointers: Move prev, current, and next pointers one step forward.
 
 Return New Head: After reaching the end of the list, prev will be the new head.
+
+
+
+Time Complexity: The time complexity of this algorithm is O(n), where n is the number of nodes in the linked list. We traverse the list once.
+
+Space Complexity: The space complexity is O(1) as we only use a constant amount of extra space for the three pointers. The algorithm is performed in-place and does not require additional data structures.
