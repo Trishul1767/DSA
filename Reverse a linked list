@@ -1,1 +1,11 @@
+Approach
 
+This problem involves reversing a singly linked list. Here's a high-level approach:
+
+Iterative Approach: Use three pointers - prev, current, and next.
+
+Iterate Through the List: Move through the list, reversing the link from current to prev.
+
+Update Pointers: Move prev, current, and next pointers one step forward.
+
+Return New Head: After reaching the end of the list, prev will be the new head.
