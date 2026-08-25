@@ -15,6 +15,7 @@ MinStack* minStackCreate() {
 }
 
 void minStackPush(MinStack* obj, int value) {
+//first spproach
     obj->top++;
     obj->stack[top]=value;
     if(obj->stack[top]>=value){
