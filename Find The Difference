@@ -1,1 +1,7 @@
-
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        t1=list(t)
+        for i in s:
+            if i in t1:
+                t1.remove(i)
+        return t1[0]
