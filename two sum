@@ -1,1 +1,13 @@
-
+def two():
+  arr=[3]
+  key=6
+  vette=dict()
+  for i in arr:
+    wanted=key-i
+    vette[wanted]=i
+  for k,l in vette.items():
+    if k in arr and l in arr:
+      return "holla"
+    elif()
+  return "bro"
+print(two())
