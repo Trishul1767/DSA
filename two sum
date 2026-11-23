@@ -1,9 +1,12 @@
 Brute force
-
-
-
-
-
+class Solution:
+    def twoSum(self, nums: list[int], target: int) -> list[int]:
+        n=len(nums)
+        for i in range(0,n-1):
+            wanted=target-nums[i]
+            for j in range(i+1,n):
+                if wanted==nums[j]:
+                    return [i,j]
 
 
 
