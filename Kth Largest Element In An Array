@@ -1,1 +1,204 @@
+Approach 1/3: Sort and Select
+This approach is quite straightforward: sort the numbers in descending order and pick the k-th element.
 
+Key Data Structures:
+List/Array: We use Python's built-in list for this approach. The list is sorted in descending order to get the k-th largest element.
+Step-by-step Breakdown:
+Initialization:
+
+Use built-in sorted function to sort the list nums in reverse order (i.e., in descending order).
+Selection:
+
+Select the k-th element from the sorted list (keeping in mind the zero-based indexing of lists).
+Result:
+
+The k-th element in the sorted list is the k-th largest element in the original list.
+Complexity:
+Time Complexity: O(NlogN)
+
+Sorting a list of N elements requires O(NlogN) time.
+Space Complexity: O(1)
+
+The space used is constant since we are only sorting the original list and selecting an element from it without utilizing any additional data structures.
+Performance:
+This solution is simple and works effectively for smaller lists. However, for very large lists, other approaches that avoid sorting the entire list might be more efficient.
+
+Language	Runtime (ms)	Runtime Beat (%)	Memory (MB)	Memory Beat (%)
+Java	22	88.35%	54.2	79.52%
+Rust	25	21.43%	3.4	5.61%
+C++	74	96.10%	45.6	74.16%
+Go	101	51.2%	7.9	85.3%
+JavaScript	143	60.17%	51.5	56.57%
+C#	164	85.88%	51.1	41.99%
+Python3	410	98.33%	29.5	72.41%
+Code 1/3
+class Solution:
+    def findKthLargest(self, nums, k):
+        return sorted(nums, reverse=True)[k-1]
+Approach 2/3: Min-Heap
+The main idea of this solution is to use a min-heap with a maximum size of k. By doing this, we ensure that the smallest of the k largest elements is always on the top of the heap.
+
+Key Data Structures:
+heap:
+This is a min-heap containing the first k elements of nums. As we progress, we will modify this heap to ensure it contains the k largest elements.
+Step-by-step Breakdown:
+Initialization:
+
+Create a heap with the first k elements of nums.
+Transform this list into a min-heap.
+Iterate through the List:
+
+For each of the remaining elements in nums:
+If the element is larger than the smallest element in the heap (i.e., the top of the heap):
+Remove the top element from the heap.
+Insert the current element into the heap.
+Result:
+
+After processing all elements in nums, the top of the heap will contain the kth largest element. Return this element.
+Example:
+Consider the list nums = [3,2,1,5,6,4] with k = 2.
+
+Here's the evolution of the heap:
+
+Initial State:
+
+heap: [3,2]
+After processing index 2 (element = 1):
+
+heap remains unchanged as 1 is not larger than 2.
+After processing index 3 (element = 5):
+
+heap: [3,5]
+After processing index 4 (element = 6):
+
+heap: [5,6]
+After processing index 5 (element = 4):
+
+heap: [5,6]
+The final state of the heap shows that the kth largest element is 5.
+
+Complexity
+Time Complexity: O(nlogk)
+Each of the n elements is processed once. However, heap operations take O(logk) time, leading to an overall complexity of O(nlogk).
+
+Space Complexity: O(k)
+The solution uses a heap with a maximum of k elements.
+
+Performance
+This solution is both time and space-efficient. By focusing only on the k largest elements and using the properties of a heap, it ensures optimal runtime for a wide range of inputs. The controlled space usage ensures that even for large k, the memory overhead remains minimal.
+
+Language	Runtime (ms)	Runtime Beat (%)	Memory (MB)	Memory Beat (%)
+Rust	13	77.55%	3.1	46.94%
+Java	37	59.27%	54.1	86.2%
+C++	76	94.84%	46.5	68.16%
+Go	91	62.6%	8.6	30.67%
+JavaScript	98	87.2%	51.7	47.64%
+C#	152	95.49%	51.7	16.25%
+Python3	407	98.75%	29.5	72.41%
+Code
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        heap = nums[:k]
+        heapq.heapify(heap)
+        
+        for num in nums[k:]:
+            if num > heap[0]:
+                heapq.heappop(heap)
+                heapq.heappush(heap, num)
+        
+        return heap[0]
+Approach 3/3: QuickSelect Algorithm
+The QuickSelect algorithm is an efficient method to find the k-th smallest (or largest) element in an unordered list without sorting the entire list. It works similarly to the QuickSort algorithm but only recurses into one half of the data.
+
+Key Data Structures:
+List/Array: We use Python's built-in list for this approach. The algorithm modifies the list in place.
+Pivot: An element chosen from the list, around which the list gets partitioned.
+Step-by-step Breakdown:
+Initialization:
+
+Set the left boundary to the beginning of the list and the right boundary to the end of the list.
+Pivot Selection:
+
+Randomly select a pivot index between the left and right boundaries.
+Partitioning:
+
+Move all elements smaller than the pivot to its left and all larger elements to its right.
+Return the final position of the pivot after the partitioning.
+Check Pivot Position:
+
+If the position of the pivot is the desired k-th largest index, return the pivot.
+If the pivot's position is greater than the desired index, adjust the right boundary and repeat.
+If the pivot's position is lesser than the desired index, adjust the left boundary and repeat.
+Result:
+
+The function will eventually return the k-th largest element in the original list.
+Example:
+Let's walk through the QuickSelect algorithm using the list nums = [3,2,1,5,6,4] and ( k = 2 ) to find the 2nd largest element.
+
+Initial List:
+[3,2,1,5,6,4]
+
+Iteration 1:
+Chosen pivot: 3 (at index 0)
+After partitioning, the list becomes: [2, 1, 3, 5, 6, 4]
+The new pivot index is 2. Since we're looking for the 2nd largest element (index 4 in 0-indexed list), and the current pivot index is less than this, we know the desired element is to the right of the current pivot.
+Iteration 2:
+Chosen pivot: 6 (at index 4)
+After partitioning, the list becomes: [2, 1, 3, 4, 5, 6]
+The new pivot index is 4, which matches our target index for the 2nd largest element.
+Result:
+The 2nd largest element in the list is 5.
+
+This example demonstrates the behavior of the QuickSelect algorithm. By iteratively selecting a pivot and partitioning the list around that pivot, it efficiently narrows down the search space until it locates the kth largest element.
+
+Complexity:
+Time Complexity:
+
+Best and Average Case: O(N)
+
+Worst Case: O(N 
+2
+ )
+
+The average performance is linear. However, in the worst case (very rare, especially with randomized pivot), the algorithm can degrade to O(N 
+2
+ ).
+
+Space Complexity: O(1)
+
+The space used is constant. The algorithm modifies the original list in place and doesn't utilize any significant additional data structures. The recursive stack calls (in the worst case) are also bounded by the depth of the list, making it O(logN), but this is typically considered as O(1) space complexity in QuickSelect.
+Performance:
+This solution is efficient for larger lists, especially when the pivot is chosen randomly, which greatly reduces the chance of the worst-case scenario. The QuickSelect algorithm allows for finding the desired element without sorting the entire list, making it faster than the sorting approach for large datasets.
+
+Language	Runtime (ms)	Runtime Beat (%)	Memory (MB)	Memory Beat (%)
+Java	4	97.78%	54.2	79.52%
+Rust	12	83.16%	3.4	5.61%
+Go	56	100%	8.3	46.37%
+C++	63	98.85%	45.5	86.52%
+JavaScript	80	94.94%	51.8	38.99%
+C#	146	98.46%	50.6	90.98%
+Python3	427	94.80%	29.6	55.40%
+Code 3/3
+class Solution:
+    def findKthLargest(self, nums, k):
+        left, right = 0, len(nums) - 1
+        while True:
+            pivot_index = random.randint(left, right)
+            new_pivot_index = self.partition(nums, left, right, pivot_index)
+            if new_pivot_index == len(nums) - k:
+                return nums[new_pivot_index]
+            elif new_pivot_index > len(nums) - k:
+                right = new_pivot_index - 1
+            else:
+                left = new_pivot_index + 1
+
+    def partition(self, nums, left, right, pivot_index):
+        pivot = nums[pivot_index]
+        nums[pivot_index], nums[right] = nums[right], nums[pivot_index]
+        stored_index = left
+        for i in range(left, right):
+            if nums[i] < pivot:
+                nums[i], nums[stored_index] = nums[stored_index], nums[i]
+                stored_index += 1
+        nums[right], nums[stored_index] = nums[stored_index], nums[right]
+        return stored_index
