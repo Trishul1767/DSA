@@ -1,3 +1,5 @@
+3 approaches for this problem the 1st one is the one i know which is not so good
+
 Approach 1/3: Sort and Select
 This approach is quite straightforward: sort the numbers in descending order and pick the k-th element.
 
